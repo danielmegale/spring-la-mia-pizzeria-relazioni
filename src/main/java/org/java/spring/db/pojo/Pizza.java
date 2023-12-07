@@ -1,13 +1,17 @@
 package org.java.spring.db.pojo;
 
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
+import org.java.spring.db.repo.CouponRepository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -35,6 +39,9 @@ public class Pizza {
 	@Column(unique = false)
 	private String foto;
 
+	@ManyToMany(mappedBy = "pizza")
+	private List<Coupon> coupons;
+	
 	public Pizza() {}
 
 	public Pizza(String nome, String descrizione, double prezzo, String foto) {
@@ -82,6 +89,14 @@ public class Pizza {
 
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+	
+	public List<Coupon> getCoupons() {
+		return coupons;
+	}
+
+	public void setCoupons(List<Coupon> coupons) {
+		this.coupons = coupons;
 	}
 
 	@Override

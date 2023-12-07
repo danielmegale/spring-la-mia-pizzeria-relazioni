@@ -2,6 +2,7 @@ package org.java.spring.controller;
 
 import java.util.List;
 
+import org.java.spring.db.pojo.Coupon;
 import org.java.spring.db.pojo.Pizza;
 import org.java.spring.db.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,9 @@ public class MainController {
 	@GetMapping("/pizzas/{id}")
 	public String getPizzaId(Model model, @PathVariable int id) {
 		Pizza pizzaId = pizzaService.findById(id);
+		List<Coupon> coupons =pizzaId.getCoupons();
 		model.addAttribute("pizzaId", pizzaId);
+		model.addAttribute("coupon", coupons);
 		return "pizza-detail";
 
 	}

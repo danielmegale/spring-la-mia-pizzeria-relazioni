@@ -9,6 +9,13 @@
 <body>
 	<h1>Pizza</h1>
 	<p th:text="${pizzaId.descrizione}"></p>
+	<p th:text="${pizzaId.prezzo}+'€'"></p>
+
+	<ul>
+		<li th:each="coupon : ${coupon}" th:object="${coupon}">
+			[[*{titolo}]] - [[*{dataDiInzio}]] - [[*{dataDiFine}]]
+		</li>
+	</ul>
 </body>
 
 </html>
