@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+
+<body>
+	<h1>Crea Pizza</h1>
+	<form th:object="${pizza}" method="POST">
+		
+		<label for="nome">Nome</label>
+		<input type="text" id="nome" th:field="*{nome}">
+		<br>
+		
+		<div th:if="${#fields.hasErrors('nome')}">
+			<span th:each="err : ${#fields.errors('nome')}" th:text="${err}"></span>
+		</div>
+		
+		<label for="descrizione">Descrizione</label>
+		<input type="text" id="descrizione" th:field="*{descrizione}">
+		<br>
+		
+		<div th:if="${#fields.hasErrors('descrizione')}">
+			<span th:each="err : ${#fields.errors('descrizione')}" th:text="${err}"></span>
+		</div>
+		
+		<label for="prezzo">Prezzo</label>
+		<input type="text" id="prezzo" th:field="*{prezzo}">
+		<br>
+		
+		<div th:if="${#fields.hasErrors('prezzo')}">
+			<span th:each="err : ${#fields.errors('prezzo')}" th:text="${err}"></span>
+		</div>
+		
+		<label for="foto">Immagine</label>
+		<input type="text" id="foto" th:field="*{foto}">
+		<br>
+		
+		<input type="submit" value="STORE">
+	</form>
+</body>
+
+</html>
