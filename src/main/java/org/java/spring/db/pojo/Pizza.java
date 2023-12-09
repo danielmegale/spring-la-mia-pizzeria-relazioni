@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
-import org.java.spring.db.repo.CouponRepository;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

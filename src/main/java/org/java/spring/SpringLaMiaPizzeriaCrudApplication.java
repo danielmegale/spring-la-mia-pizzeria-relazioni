@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.java.spring.db.pojo.Coupon;
 import org.java.spring.db.pojo.Pizza;
-import org.java.spring.db.repo.CouponRepository;
 import org.java.spring.db.service.CouponService;
 import org.java.spring.db.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
