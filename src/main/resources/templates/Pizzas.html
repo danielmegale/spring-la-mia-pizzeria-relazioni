@@ -26,6 +26,17 @@
 					<input class="bg-danger" type="submit" value="Elimina">
 				</form>
 			</div>
+			<div>
+				<h4>Ingredienti</h4>
+				<ul>
+					<li
+						th:each="ingredient : *{ingredients}"
+						th:object="${ingredient}"
+						>
+						[[*{nome}]]
+					</li>
+				</ul>
+			</div>
 		</li>
 	</ul>
 </body>

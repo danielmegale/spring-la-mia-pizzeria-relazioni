@@ -22,6 +22,12 @@
 			</form>
 		</li>
 	</ul>
+	<ul>
+		<li th:each="ingredient : *{ingredients}" th:object="${ingredient}"
+		>
+		[[*{nome}]]
+		</li>
+	</ul>
 	<a th:href="@{/pizzas/{id}/coupon (id=*{id})}">Nuova offerta</a>
 </body>
 

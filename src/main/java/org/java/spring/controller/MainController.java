@@ -3,7 +3,10 @@ package org.java.spring.controller;
 import java.util.List;
 
 import org.java.spring.db.pojo.Coupon;
+import org.java.spring.db.pojo.Ingredient;
 import org.java.spring.db.pojo.Pizza;
+import org.java.spring.db.service.CouponService;
+import org.java.spring.db.service.IngredientService;
 import org.java.spring.db.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,12 @@ public class MainController {
 
 	@Autowired
 	private PizzaService pizzaService;
+	
+	@Autowired
+	private IngredientService ingredientService;
+	
+	@Autowired
+	private CouponService couponService;
 
 	@GetMapping()
 	public String searchPizzas(Model model, @RequestParam(required = false) String q) {
@@ -36,7 +45,9 @@ public class MainController {
 
 	@GetMapping("/pizzas/create")
 	public String createPizza(Model model) {
+		List<Ingredient>  ingredients = ingredientService.findAll();
 		Pizza pizza = new Pizza();
+		model.addAttribute("ingredients",ingredients );
 		model.addAttribute("pizza", pizza);
 		return "pizza-form";
 	}
@@ -55,15 +66,19 @@ public class MainController {
 	public String getPizzaId(Model model, @PathVariable int id) {
 		Pizza pizzaId = pizzaService.findById(id);
 		List<Coupon> coupons =pizzaId.getCoupons();
+		List<Ingredient>  ingredients = pizzaId.getIngredients();
 		model.addAttribute("pizzaId", pizzaId);
 		model.addAttribute("coupon", coupons);
+		model.addAttribute("ingredients",ingredients );
 		return "pizza-detail";
 
 	}
 	
 	@GetMapping("/pizzas/edit/{id}")
 	public String editPizza(Model model,@PathVariable int id) {
+		List<Ingredient>  ingredients = ingredientService.findAll();
 		Pizza pizza = pizzaService.findById(id);
+		model.addAttribute("ingredients",ingredients );
 		model.addAttribute("pizza", pizza);
 		return"pizza-form";
 	}
@@ -80,6 +95,13 @@ public class MainController {
 	@PostMapping("/pizzas/delete/{id}")
 	public String deletePizza(@PathVariable int id) {
 		Pizza pizza=pizzaService.findById(id);
+		
+		pizza.clear();
+		pizzaService.save(pizza);
+		
+		List<Coupon> coupons=pizza.getCoupons();
+		coupons.forEach(couponService::delete);
+		
 		pizzaService.delete(pizza);
 		return "redirect:/";
 	}

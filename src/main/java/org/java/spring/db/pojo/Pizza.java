@@ -1,5 +1,6 @@
 package org.java.spring.db.pojo;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
@@ -41,13 +42,17 @@ public class Pizza {
 	@ManyToMany(mappedBy = "pizza")
 	private List<Coupon> coupons;
 	
+	@ManyToMany
+	private List<Ingredient> ingredients;
+
 	public Pizza() {}
 
-	public Pizza(String nome, String descrizione, double prezzo, String foto) {
+	public Pizza(String nome, String descrizione, double prezzo, String foto, Ingredient... ingredients) {
 		setNome(nome);
 		setDescrizione(descrizione);
 		setPrezzo(prezzo);
-		setFoto(foto);
+		setFoto(foto); 
+		setIngredients(ingredients);
 	}
 
 	public int getId() {
@@ -98,6 +103,19 @@ public class Pizza {
 		this.coupons = coupons;
 	}
 
+	public List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+	public void setIngredients(List<Ingredient> ingredients) {
+	    this.ingredients = ingredients;
+	}
+	public void setIngredients(Ingredient... ingredients) {
+	    setIngredients(Arrays.asList(ingredients));
+	}
+	public void clear(){
+		getIngredients().clear();
+		}
+	
 	@Override
 	public String toString() {
 		return "[" + getId() + "]" + getNome() + " - " 
